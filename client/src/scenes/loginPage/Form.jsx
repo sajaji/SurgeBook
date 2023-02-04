@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -101,6 +102,10 @@ const Form = () => {
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
+
+  function onChange(value) {
+    console.log("Captcha value:", value);
+  }
 
   return (
     <Formik
@@ -230,6 +235,12 @@ const Form = () => {
               helperText={touched.password && errors.password}
               sx={{ gridColumn: "span 4" }}
             />
+
+            <ReCAPTCHA
+              sitekey="6Lcz7VEkAAAAAPamETn8WmrcbP25u6zHxqeD1L3C"
+              onChange={onChange}
+            />,
+            
           </Box>
 
           {/* BUTTONS */}
